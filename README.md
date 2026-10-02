@@ -36,13 +36,14 @@ GitHub에서는 **Actions → Build and verify Windows EXE**를 실행해 검증
 
 - WPF 네이티브 프로젝트 창과 Windows 파일 대화상자
 - 멀티트랙 타임라인, 클립 선택·드래그·스냅
-- 재생 헤드, 재생·정지·되감기
+- 프로젝트 트랙을 임시 WAV로 렌더링한 뒤 Windows Media Foundation으로 수행하는 실제 미리듣기
+- 재생 헤드와 실제 오디오 위치 동기화, 재생·일시정지·정지·되감기
 - Vocal, Instrument, Audio, Video 데이터 모델
 - Track Mute/Solo 및 트랙 추가
 - 가사, Piano Roll, Automation, MV Storyboard 편집 화면
 - AI Producer 명령에 따른 Drum/Harmony 클립 변경
 - `.myvocal` 프로젝트의 원자적 저장 및 다시 열기
-- 44.1 kHz, 16-bit, Stereo WAV의 비동기 렌더링
+- Track Mute/Solo/Volume과 클립 구간을 반영하는 44.1 kHz, 16-bit, Stereo 비동기 WAV 렌더링
 - 단일 Windows x64 EXE 배포
 
 ## 아직 실제 Provider가 필요한 범위

@@ -1,49 +1,68 @@
-# MYVOCAL Studio — Windows 데스크톱 프로그램
+# MYVOCAL Studio
 
-MYVOCAL Studio는 웹사이트가 아니라 **네이티브 데스크톱 창으로 실행되는 음악·영상 제작 프로그램**입니다. Python 표준 GUI인 Tk/Tkinter로 작성했으며 브라우저나 로컬 웹 서버를 사용하지 않습니다.
+MYVOCAL Studio는 **C#/.NET 8 WPF로 작성된 Windows 네이티브 데스크톱 프로그램**입니다. 웹사이트, Python, 브라우저 또는 로컬 서버를 사용하지 않습니다.
 
-## Windows EXE 만들기
+## 기술 선택
 
-Windows PC에서 저장소를 내려받고 `build_windows.bat`을 실행합니다.
+프로덕션 Windows 애플리케이션에 맞춰 다음 구조를 사용합니다.
+
+- **C# / .NET 8:** 정적 타입, 비동기 작업, 취소와 예외 처리
+- **WPF:** Windows 네이티브 데스크톱 UI와 하드웨어 가속 렌더링
+- **자체 프로젝트 계층:** UI, 프로젝트 모델, 저장 서비스, 오디오 렌더러 분리
+- **Self-contained win-x64 배포:** 대상 PC에 .NET이나 Python이 없어도 단일 EXE 실행
+- **Atomic save:** 임시 파일을 쓴 다음 교체해 프로젝트 손상 위험 감소
+
+## Windows EXE 빌드
+
+Windows 10/11과 .NET 8 SDK가 설치된 PC에서:
 
 ```bat
 build_windows.bat
 ```
 
-완료 후 다음 파일이 생성됩니다.
+스크립트는 Restore → Release Build → Smoke Test → Self-contained Publish를 순서대로 수행합니다. 하나라도 실패하면 EXE를 만들지 않고 오류 코드로 종료합니다.
+
+결과 파일:
 
 ```text
 dist\MYVOCAL-Studio.exe
 ```
 
-GitHub 저장소에서는 **Actions → Build Windows EXE → Run workflow**를 실행해도 `MYVOCAL-Studio-Windows` 아티팩트로 EXE를 받을 수 있습니다.
+이 EXE는 self-contained 단일 파일이므로 대상 PC에 Python 또는 .NET Runtime을 별도로 설치할 필요가 없습니다.
 
-## 소스에서 바로 실행
+GitHub에서는 **Actions → Build and verify Windows EXE**를 실행해 검증된 `MYVOCAL-Studio-win-x64` 아티팩트를 받을 수 있습니다.
 
-Python 3.10 이상이 설치된 Windows, macOS 또는 Linux에서:
+## 현재 실제 구현 범위
 
-```bash
-python main.py
-```
-
-별도의 웹 서버, Node.js 또는 브라우저는 필요하지 않습니다.
-
-## 현재 동작하는 기능
-
-- 네이티브 데스크톱 메뉴 및 프로젝트 창
-- 멀티트랙 타임라인과 클립 드래그·스냅
+- WPF 네이티브 프로젝트 창과 Windows 파일 대화상자
+- 멀티트랙 타임라인, 클립 선택·드래그·스냅
 - 재생 헤드, 재생·정지·되감기
-- Vocal, Instrument, Audio, Video 트랙 추가
-- 트랙 Mute/Solo 및 프로젝트 구간 표시
-- 가사 편집과 AI 다시 쓰기
-- Piano Roll, Automation, MV Storyboard 편집기
-- AI Producer 자연어 명령과 타임라인 수정
-- `.myvocal` 프로젝트 저장 및 다시 열기
-- 실제 스테레오 WAV 데모 음원 렌더링 및 내보내기
-- Windows 단일 실행 파일 패키징
+- Vocal, Instrument, Audio, Video 데이터 모델
+- Track Mute/Solo 및 트랙 추가
+- 가사, Piano Roll, Automation, MV Storyboard 편집 화면
+- AI Producer 명령에 따른 Drum/Harmony 클립 변경
+- `.myvocal` 프로젝트의 원자적 저장 및 다시 열기
+- 44.1 kHz, 16-bit, Stereo WAV의 비동기 렌더링
+- 단일 Windows x64 EXE 배포
 
-## 프로젝트 파일
+## 아직 실제 Provider가 필요한 범위
 
-프로젝트는 JSON 기반의 `.myvocal` 파일로 저장합니다. 트랙, 클립, BPM과 편집 상태가 포함되며 이후 실제 보이스 모델 및 음악·영상 Provider를 연결할 수 있습니다.
+다음은 UI 문구만으로 완성됐다고 주장하지 않습니다.
 
-> AI 생성과 영상 렌더링 Provider 연동은 아직 시뮬레이션입니다. 그러나 프로그램 자체, 프로젝트 저장/열기, 타임라인 편집, WAV 렌더링은 로컬 데스크톱에서 동작합니다.
+- 실제 보이스 모델 학습과 Singing 합성
+- LLM 기반 작사·작곡·편곡
+- Suno 및 기타 Music API 연동
+- 사람·캐릭터 학습과 Identity Lock 생성 모델
+- 2D/3D 모션, Lip Sync, 영상 생성 및 MP4 인코딩
+- GPU 작업 큐, 캐시, 클라우드 동기화와 권한 검증
+
+이 기능들은 각각 별도의 모델 또는 외부 Provider가 필요합니다. 현재 코드는 이들을 붙일 수 있는 데스크톱 편집기와 프로젝트 기반을 제공하지만, 구현되지 않은 AI 기능을 완성품이라고 표시하지 않습니다.
+
+## 개발 명령
+
+```powershell
+dotnet restore MYVOCAL-Studio.sln
+dotnet build MYVOCAL-Studio.sln -c Release
+dotnet run --project tests/MyVocalStudio.Tests -c Release
+dotnet run --project src/MyVocalStudio
+```

@@ -1,25 +1,29 @@
-name: Build Windows EXE
+name: Build and verify Windows EXE
 on:
   workflow_dispatch:
   push:
     branches: [work, main]
+  pull_request:
 jobs:
-  windows-executable:
+  build:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-dotnet@v4
         with:
-          python-version: '3.12'
-      - name: Install packager
-        run: python -m pip install pyinstaller
-      - name: Build MYVOCAL Studio
-        run: pyinstaller --noconfirm --clean MYVOCAL.spec
-      - name: Smoke test executable
+          dotnet-version: 8.0.x
+      - run: dotnet restore MYVOCAL-Studio.sln
+      - run: dotnet build MYVOCAL-Studio.sln -c Release --no-restore
+      - name: Run project and renderer smoke tests
+        run: dotnet run --project tests/MyVocalStudio.Tests -c Release --no-build
+      - name: Publish self-contained single-file EXE
+        run: dotnet publish src/MyVocalStudio/MyVocalStudio.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:EnableCompressionInSingleFile=true -o dist
+      - name: Verify executable
         shell: powershell
         run: |
           if (!(Test-Path "dist/MYVOCAL-Studio.exe")) { throw "EXE was not created" }
+          if ((Get-Item "dist/MYVOCAL-Studio.exe").Length -lt 1MB) { throw "EXE is unexpectedly small" }
       - uses: actions/upload-artifact@v4
         with:
-          name: MYVOCAL-Studio-Windows
+          name: MYVOCAL-Studio-win-x64
           path: dist/MYVOCAL-Studio.exe

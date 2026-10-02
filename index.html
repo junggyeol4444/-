@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#08090d" />
+  <title>MYVOCAL Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
+  <aside class="sidebar">
+    <a class="brand" href="#" aria-label="MYVOCAL Studio 홈"><span class="brand-mark">M</span><span>MYVOCAL<small>STUDIO</small></span></a>
+    <nav class="primary-nav" aria-label="주 메뉴">
+      <p>WORKSPACE</p>
+      <a class="active" href="#home"><i data-icon="home"></i><span>Studio Home</span></a>
+      <a href="#create"><i data-icon="spark"></i><span>AI로 만들기</span><em>NEW</em></a>
+      <a href="#music"><i data-icon="music"></i><span>Music Studio</span></a>
+      <a href="#voice"><i data-icon="mic"></i><span>Voice Studio</span></a>
+      <a href="#character"><i data-icon="user"></i><span>Character Studio</span></a>
+      <a href="#video"><i data-icon="video"></i><span>Video Studio</span></a>
+      <a href="#learn"><i data-icon="brain"></i><span>Learning Studio</span></a>
+      <p>ASSETS</p>
+      <a href="#library"><i data-icon="grid"></i><span>My Library</span></a>
+      <a href="#projects"><i data-icon="folder"></i><span>Projects</span><b>12</b></a>
+      <a href="#shared"><i data-icon="users"></i><span>Shared with me</span></a>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="storage-head"><span>Cloud storage</span><strong>64%</strong></div>
+      <div class="storage-bar"><span></span></div>
+      <small>12.8 GB of 20 GB</small>
+      <button class="upgrade"><i data-icon="bolt"></i><span><strong>Upgrade your plan</strong><small>Unlock unlimited creation</small></span><i data-icon="chevron"></i></button>
+      <a href="#settings"><i data-icon="settings"></i><span>Settings</span></a>
+      <a href="#help"><i data-icon="help"></i><span>Help & Support</span></a>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <button class="menu-btn" aria-label="메뉴 열기"><i data-icon="menu"></i></button>
+      <div class="project-title"><span class="status-dot"></span><strong>Studio Home</strong><small>All systems operational</small></div>
+      <div class="top-actions">
+        <button class="search"><i data-icon="search"></i><span>Search anything</span><kbd>⌘ K</kbd></button>
+        <button class="icon-button" aria-label="알림"><i data-icon="bell"></i><span class="notification"></span></button>
+        <div class="avatar">JK</div>
+        <button class="profile"><strong>Jiwon Kim</strong><small>Creator plan</small></button>
+        <button class="icon-button"><i data-icon="down"></i></button>
+      </div>
+    </header>
+
+    <div class="content" id="home">
+      <section class="welcome">
+        <div><span class="eyebrow">FRIDAY, OCTOBER 2</span><h1>당신의 다음 사운드는<br><em>어떤 모습인가요?</em></h1><p>아이디어 한 줄에서 완성된 음악과 영상까지. 모든 창작을 한곳에서 시작하세요.</p></div>
+        <div class="mini-wave" aria-hidden="true"></div>
+      </section>
+
+      <section class="creator-card" id="create">
+        <div class="creator-glow"></div>
+        <div class="creator-heading"><div class="ai-orb"><span></span></div><div><p>AI CREATIVE DIRECTOR</p><h2>무엇을 만들고 싶나요?</h2></div><span class="online"><i></i> READY</span></div>
+        <div class="prompt-box">
+          <textarea aria-label="만들고 싶은 음악 설명" placeholder="예: 애니메이션 록 발라드를 만들어줘. 오래 헤어져 있던 친구를 다시 만나는 이야기이고, 마지막 후렴은 웅장하게...">애니메이션 록 발라드를 만들어줘. 오래 헤어져 있던 친구를 다시 만나는 이야기이고, 마지막 후렴은 웅장하게...</textarea>
+          <div class="prompt-controls"><div><button class="add-btn" aria-label="첨부"><i data-icon="plus"></i></button><button class="chip"><i data-icon="mic"></i> MY VOICE <i data-icon="x"></i></button><button class="chip purple"><i data-icon="waves"></i> ROCK + ORCHESTRAL <i data-icon="x"></i></button><button class="chip"><i data-icon="user"></i> LUNA <i data-icon="x"></i></button></div><button class="create-btn"><span>CREATE</span><i data-icon="arrow"></i></button></div>
+        </div>
+        <div class="quick-settings"><button data-setting="lyrics"><i class="checked">✓</i><span>AI Lyrics<small>가사 자동 생성</small></span></button><button data-setting="composition"><i class="checked">✓</i><span>AI Composition<small>작곡 & 편곡</small></span></button><button data-setting="singing"><i class="checked">✓</i><span>AI Singing<small>MY VOICE</small></span></button><button data-setting="video"><i class="checked">✓</i><span>Music Video<small>LUNA · Anime PV</small></span></button><button class="tune"><i data-icon="sliders"></i></button></div>
+        <div class="generation-progress" hidden><div><span>AI Creative Director가 프로젝트를 설계하고 있어요</span><b>12%</b></div><div class="progress-track"><i></i></div></div>
+      </section>
+
+      <section class="quick-start">
+        <div class="section-heading"><div><span>QUICK START</span><h2>바로 시작하기</h2></div><a href="#library">모두 보기 <i data-icon="arrow"></i></a></div>
+        <div class="action-grid">
+          <button class="action-card coral"><i data-icon="spark"></i><span><strong>AI로 노래 만들기</strong><small>아이디어부터 완성곡까지</small></span><i data-icon="arrow"></i></button>
+          <button class="action-card violet"><i data-icon="mic"></i><span><strong>내 AI 가수 만들기</strong><small>나만의 보이스 모델</small></span><i data-icon="arrow"></i></button>
+          <button class="action-card blue"><i data-icon="music"></i><span><strong>직접 작곡하기</strong><small>멀티트랙 Music Studio</small></span><i data-icon="arrow"></i></button>
+          <button class="action-card pink"><i data-icon="video"></i><span><strong>뮤직비디오 만들기</strong><small>음악에서 영상까지</small></span><i data-icon="arrow"></i></button>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <div class="projects-panel" id="projects">
+          <div class="section-heading compact"><div><span>CONTINUE CREATING</span><h2>최근 프로젝트</h2></div><button class="dots">•••</button></div>
+          <div class="project-list">
+            <article><div class="cover cover-one"><span>MV</span><i class="play">▶</i></div><div class="project-info"><div><strong>다시, 우리</strong><em class="working">작업 중</em></div><p>Anime Rock · MY VOICE · LUNA</p><div class="wave-line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>03:42</strong><small>12분 전</small></div></article>
+            <article><div class="cover cover-two"><span>SONG</span><i class="play">▶</i></div><div class="project-info"><div><strong>Midnight Drive</strong><em>마스터 완료</em></div><p>Synthwave · MY VOICE 2</p><div class="wave-line cyan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>04:18</strong><small>어제</small></div></article>
+            <article><div class="cover cover-three"><span>PV</span><i class="play">▶</i></div><div class="project-info"><div><strong>전파소녀</strong><em class="rendering">렌더링 78%</em></div><p>Vocal Synth · ROBOT GIRL</p><div class="wave-line pink"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>02:56</strong><small>2일 전</small></div></article>
+          </div>
+        </div>
+        <aside class="library-panel" id="library">
+          <div class="section-heading compact"><div><span>MY ASSETS</span><h2>라이브러리</h2></div><button class="dots">•••</button></div>
+          <div class="library-tabs"><button class="active" data-tab="voices">VOICES <b>2</b></button><button data-tab="characters">CHARACTERS <b>4</b></button></div>
+          <div class="asset-list voices active"><article><div class="asset-avatar voice-avatar"><i data-icon="mic"></i></div><div><strong>MY VOICE</strong><span>Ready · 96% quality</span></div><em>기본</em><button>⋮</button></article><article><div class="asset-avatar voice-two"><i data-icon="mic"></i></div><div><strong>MY VOICE 2</strong><span>Training · 74%</span></div><i class="ring">74</i><button>⋮</button></article></div>
+          <div class="asset-list characters"><article><div class="asset-avatar luna">L</div><div><strong>LUNA</strong><span>Anime · Identity locked</span></div><em>기본</em><button>⋮</button></article><article><div class="asset-avatar robot">R</div><div><strong>ROBOT GIRL</strong><span>3D · Ready</span></div><button>⋮</button></article></div>
+          <button class="add-asset"><i data-icon="plus"></i> 새 에셋 등록하기</button>
+        </aside>
+      </section>
+      <footer><span>MYVOCAL STUDIO <i>·</i> BUILD 0.9.4</span><span>Music and video, in one creative flow.</span></footer>
+    </div>
+  </main>
+  <div class="toast" role="status"><i>✓</i><span><strong>프로젝트를 준비하고 있어요</strong><small>잠시 후 Music Studio로 이동합니다.</small></span></div>
+  <script src="app.js"></script>
+</body>
+</html>

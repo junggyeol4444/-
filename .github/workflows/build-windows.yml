@@ -1,0 +1,25 @@
+name: Build Windows EXE
+on:
+  workflow_dispatch:
+  push:
+    branches: [work, main]
+jobs:
+  windows-executable:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install packager
+        run: python -m pip install pyinstaller
+      - name: Build MYVOCAL Studio
+        run: pyinstaller --noconfirm --clean MYVOCAL.spec
+      - name: Smoke test executable
+        shell: powershell
+        run: |
+          if (!(Test-Path "dist/MYVOCAL-Studio.exe")) { throw "EXE was not created" }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: MYVOCAL-Studio-Windows
+          path: dist/MYVOCAL-Studio.exe

@@ -42,6 +42,9 @@ GitHub에서는 **Actions → Build and verify Windows EXE**를 실행해 검증
 - Mono/Stereo 16-bit PCM WAV 파일 가져오기와 타임라인 배치
 - 가져온 WAV의 샘플레이트 변환 재생 및 프로젝트 믹스 포함
 - Track Mute/Solo 및 트랙 추가
+- 클립 이동, 트랙 추가, WAV 가져오기, Mute/Solo/Volume, AI 편집의 50단계 Undo/Redo
+- Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z, Ctrl+S 및 Space 키보드 단축키
+- 저장되지 않은 변경 상태 표시와 종료 전 손실 방지 확인
 - 가사, Piano Roll, Automation, MV Storyboard 편집 화면
 - AI Producer 명령에 따른 Drum/Harmony 클립 변경
 - `.myvocal` 프로젝트의 원자적 저장 및 다시 열기

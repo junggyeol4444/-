@@ -12,6 +12,7 @@ try
     var mutedFile=Path.Combine(temp,"muted.wav");source.Tracks.Single().IsMuted=true;await renderer.RenderProjectAsync(source,mutedFile,1);var mutedBytes=await File.ReadAllBytesAsync(mutedFile);Assert(mutedBytes.Skip(44).All(value=>value==0),"muted track renders silence");
     source.Tracks.Single().IsMuted=false;source.Bpm=0;await AssertThrows<ArgumentOutOfRangeException>(()=>renderer.RenderProjectAsync(source,Path.Combine(temp,"invalid.wav"),1),"invalid BPM rejected");
     source.Bpm=120;source.Tracks=[new(){Name="Imported Audio",Kind=TrackKind.Audio,Clips=[new(){Name="Imported",Length=1,SourcePath=wave}]}];var mixedFile=Path.Combine(temp,"mixed.wav");await renderer.RenderProjectAsync(source,mixedFile,1);var mixedBytes=await File.ReadAllBytesAsync(mixedFile);Assert(mixedBytes.Skip(44).Any(value=>value!=0),"imported PCM mixed into project");
+    var history=new ProjectHistory(3);history.Record(source);source.Name="Edited";var undone=history.Undo(source)!;Assert(undone.Name=="Roundtrip","history undo");var redone=history.Redo(undone)!;Assert(redone.Name=="Edited","history redo");
     Console.WriteLine("All MYVOCAL smoke tests passed.");return 0;
 }
 finally{Directory.Delete(temp,true);}

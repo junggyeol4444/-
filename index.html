@@ -1,104 +1,65 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#08090d" />
-  <title>MYVOCAL Studio</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#090a0f">
+<title>MYVOCAL Studio — Project</title><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="ambient ambient-one"></div><div class="ambient ambient-two"></div>
-  <aside class="sidebar">
-    <a class="brand" href="#" aria-label="MYVOCAL Studio 홈"><span class="brand-mark">M</span><span>MYVOCAL<small>STUDIO</small></span></a>
-    <nav class="primary-nav" aria-label="주 메뉴">
-      <p>WORKSPACE</p>
-      <a class="active" href="#home"><i data-icon="home"></i><span>Studio Home</span></a>
-      <a href="#create"><i data-icon="spark"></i><span>AI로 만들기</span><em>NEW</em></a>
-      <a href="#music"><i data-icon="music"></i><span>Music Studio</span></a>
-      <a href="#voice"><i data-icon="mic"></i><span>Voice Studio</span></a>
-      <a href="#character"><i data-icon="user"></i><span>Character Studio</span></a>
-      <a href="#video"><i data-icon="video"></i><span>Video Studio</span></a>
-      <a href="#learn"><i data-icon="brain"></i><span>Learning Studio</span></a>
-      <p>ASSETS</p>
-      <a href="#library"><i data-icon="grid"></i><span>My Library</span></a>
-      <a href="#projects"><i data-icon="folder"></i><span>Projects</span><b>12</b></a>
-      <a href="#shared"><i data-icon="users"></i><span>Shared with me</span></a>
-    </nav>
-    <div class="sidebar-bottom">
-      <div class="storage-head"><span>Cloud storage</span><strong>64%</strong></div>
-      <div class="storage-bar"><span></span></div>
-      <small>12.8 GB of 20 GB</small>
-      <button class="upgrade"><i data-icon="bolt"></i><span><strong>Upgrade your plan</strong><small>Unlock unlimited creation</small></span><i data-icon="chevron"></i></button>
-      <a href="#settings"><i data-icon="settings"></i><span>Settings</span></a>
-      <a href="#help"><i data-icon="help"></i><span>Help & Support</span></a>
-    </div>
-  </aside>
-
-  <main>
-    <header class="topbar">
-      <button class="menu-btn" aria-label="메뉴 열기"><i data-icon="menu"></i></button>
-      <div class="project-title"><span class="status-dot"></span><strong>Studio Home</strong><small>All systems operational</small></div>
-      <div class="top-actions">
-        <button class="search"><i data-icon="search"></i><span>Search anything</span><kbd>⌘ K</kbd></button>
-        <button class="icon-button" aria-label="알림"><i data-icon="bell"></i><span class="notification"></span></button>
-        <div class="avatar">JK</div>
-        <button class="profile"><strong>Jiwon Kim</strong><small>Creator plan</small></button>
-        <button class="icon-button"><i data-icon="down"></i></button>
+<div id="app">
+<header class="titlebar">
+  <div class="logo"><b>M</b><span>MYVOCAL <i>STUDIO</i></span></div>
+  <div class="project-name"><button id="backBtn">‹</button><div><strong contenteditable="true">다시, 우리</strong><small><span></span> 저장됨</small></div></div>
+  <div class="history"><button id="undoBtn" title="실행 취소">↶</button><button id="redoBtn" title="다시 실행">↷</button></div>
+  <div class="transport">
+    <button id="rewindBtn">▮◀</button><button id="playBtn" class="play" aria-label="재생">▶</button><button id="stopBtn">■</button>
+    <div class="time"><b id="timeDisplay">01:12.000</b><small>TIME</small></div>
+    <div class="tempo"><button id="metroBtn">♩</button><b id="bpmDisplay">128.0</b><small>BPM</small><b>A min</b><small>KEY</small><b>4/4</b><small>SIG</small></div>
+  </div>
+  <div class="head-actions"><button id="exportBtn" class="outline">내보내기</button><button id="renderBtn" class="gradient">✦ RENDER</button><div class="avatar">JK</div></div>
+</header>
+<nav class="toolnav">
+  <button class="active" data-view="music">♫<span>MUSIC</span></button><button data-view="voice">◉<span>VOICE</span></button><button data-view="character">♙<span>CHARACTER</span></button><button data-view="video">▣<span>VIDEO</span></button><button data-view="library">▦<span>LIBRARY</span></button>
+  <div class="nav-bottom"><button id="settingsBtn">⚙</button><button>?</button></div>
+</nav>
+<main>
+  <section class="arranger">
+    <div class="arranger-head"><div class="view-title"><b id="viewTitle">Music Studio</b><span id="viewSub">ARRANGEMENT</span></div><div class="edit-tools"><button class="active">↖</button><button>✂</button><button>✎</button><button>⌫</button><i></i><button id="snapBtn" class="active">⌁ SNAP</button><select id="gridSelect"><option>1/4</option><option>1/8</option><option>1/16</option></select></div><div class="zoom"><button id="zoomOut">−</button><input id="zoom" type="range" min="70" max="170" value="100"><button id="zoomIn">＋</button></div></div>
+    <div class="section-strip"><span class="intro" style="--w:10%">INTRO</span><span class="verse" style="--w:20%">VERSE 1</span><span class="pre" style="--w:15%">PRE-CHORUS</span><span class="chorus" style="--w:25%">CHORUS</span><span class="verse" style="--w:20%">VERSE 2</span><span class="bridge" style="--w:10%">BRIDGE</span></div>
+    <div class="timeline-wrap">
+      <aside class="track-list">
+        <div class="track-top"><button id="addTrackBtn">＋ ADD TRACK</button><button>≡</button></div>
+        <div id="trackHeaders"></div>
+      </aside>
+      <div class="timeline-scroll" id="timelineScroll">
+        <div class="ruler" id="ruler"></div><div class="playhead" id="playhead"><i></i></div>
+        <div id="trackLanes"></div>
       </div>
-    </header>
-
-    <div class="content" id="home">
-      <section class="welcome">
-        <div><span class="eyebrow">FRIDAY, OCTOBER 2</span><h1>당신의 다음 사운드는<br><em>어떤 모습인가요?</em></h1><p>아이디어 한 줄에서 완성된 음악과 영상까지. 모든 창작을 한곳에서 시작하세요.</p></div>
-        <div class="mini-wave" aria-hidden="true"></div>
-      </section>
-
-      <section class="creator-card" id="create">
-        <div class="creator-glow"></div>
-        <div class="creator-heading"><div class="ai-orb"><span></span></div><div><p>AI CREATIVE DIRECTOR</p><h2>무엇을 만들고 싶나요?</h2></div><span class="online"><i></i> READY</span></div>
-        <div class="prompt-box">
-          <textarea aria-label="만들고 싶은 음악 설명" placeholder="예: 애니메이션 록 발라드를 만들어줘. 오래 헤어져 있던 친구를 다시 만나는 이야기이고, 마지막 후렴은 웅장하게...">애니메이션 록 발라드를 만들어줘. 오래 헤어져 있던 친구를 다시 만나는 이야기이고, 마지막 후렴은 웅장하게...</textarea>
-          <div class="prompt-controls"><div><button class="add-btn" aria-label="첨부"><i data-icon="plus"></i></button><button class="chip"><i data-icon="mic"></i> MY VOICE <i data-icon="x"></i></button><button class="chip purple"><i data-icon="waves"></i> ROCK + ORCHESTRAL <i data-icon="x"></i></button><button class="chip"><i data-icon="user"></i> LUNA <i data-icon="x"></i></button></div><button class="create-btn"><span>CREATE</span><i data-icon="arrow"></i></button></div>
-        </div>
-        <div class="quick-settings"><button data-setting="lyrics"><i class="checked">✓</i><span>AI Lyrics<small>가사 자동 생성</small></span></button><button data-setting="composition"><i class="checked">✓</i><span>AI Composition<small>작곡 & 편곡</small></span></button><button data-setting="singing"><i class="checked">✓</i><span>AI Singing<small>MY VOICE</small></span></button><button data-setting="video"><i class="checked">✓</i><span>Music Video<small>LUNA · Anime PV</small></span></button><button class="tune"><i data-icon="sliders"></i></button></div>
-        <div class="generation-progress" hidden><div><span>AI Creative Director가 프로젝트를 설계하고 있어요</span><b>12%</b></div><div class="progress-track"><i></i></div></div>
-      </section>
-
-      <section class="quick-start">
-        <div class="section-heading"><div><span>QUICK START</span><h2>바로 시작하기</h2></div><a href="#library">모두 보기 <i data-icon="arrow"></i></a></div>
-        <div class="action-grid">
-          <button class="action-card coral"><i data-icon="spark"></i><span><strong>AI로 노래 만들기</strong><small>아이디어부터 완성곡까지</small></span><i data-icon="arrow"></i></button>
-          <button class="action-card violet"><i data-icon="mic"></i><span><strong>내 AI 가수 만들기</strong><small>나만의 보이스 모델</small></span><i data-icon="arrow"></i></button>
-          <button class="action-card blue"><i data-icon="music"></i><span><strong>직접 작곡하기</strong><small>멀티트랙 Music Studio</small></span><i data-icon="arrow"></i></button>
-          <button class="action-card pink"><i data-icon="video"></i><span><strong>뮤직비디오 만들기</strong><small>음악에서 영상까지</small></span><i data-icon="arrow"></i></button>
-        </div>
-      </section>
-
-      <section class="workspace-grid">
-        <div class="projects-panel" id="projects">
-          <div class="section-heading compact"><div><span>CONTINUE CREATING</span><h2>최근 프로젝트</h2></div><button class="dots">•••</button></div>
-          <div class="project-list">
-            <article><div class="cover cover-one"><span>MV</span><i class="play">▶</i></div><div class="project-info"><div><strong>다시, 우리</strong><em class="working">작업 중</em></div><p>Anime Rock · MY VOICE · LUNA</p><div class="wave-line"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>03:42</strong><small>12분 전</small></div></article>
-            <article><div class="cover cover-two"><span>SONG</span><i class="play">▶</i></div><div class="project-info"><div><strong>Midnight Drive</strong><em>마스터 완료</em></div><p>Synthwave · MY VOICE 2</p><div class="wave-line cyan"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>04:18</strong><small>어제</small></div></article>
-            <article><div class="cover cover-three"><span>PV</span><i class="play">▶</i></div><div class="project-info"><div><strong>전파소녀</strong><em class="rendering">렌더링 78%</em></div><p>Vocal Synth · ROBOT GIRL</p><div class="wave-line pink"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="project-meta"><strong>02:56</strong><small>2일 전</small></div></article>
-          </div>
-        </div>
-        <aside class="library-panel" id="library">
-          <div class="section-heading compact"><div><span>MY ASSETS</span><h2>라이브러리</h2></div><button class="dots">•••</button></div>
-          <div class="library-tabs"><button class="active" data-tab="voices">VOICES <b>2</b></button><button data-tab="characters">CHARACTERS <b>4</b></button></div>
-          <div class="asset-list voices active"><article><div class="asset-avatar voice-avatar"><i data-icon="mic"></i></div><div><strong>MY VOICE</strong><span>Ready · 96% quality</span></div><em>기본</em><button>⋮</button></article><article><div class="asset-avatar voice-two"><i data-icon="mic"></i></div><div><strong>MY VOICE 2</strong><span>Training · 74%</span></div><i class="ring">74</i><button>⋮</button></article></div>
-          <div class="asset-list characters"><article><div class="asset-avatar luna">L</div><div><strong>LUNA</strong><span>Anime · Identity locked</span></div><em>기본</em><button>⋮</button></article><article><div class="asset-avatar robot">R</div><div><strong>ROBOT GIRL</strong><span>3D · Ready</span></div><button>⋮</button></article></div>
-          <button class="add-asset"><i data-icon="plus"></i> 새 에셋 등록하기</button>
-        </aside>
-      </section>
-      <footer><span>MYVOCAL STUDIO <i>·</i> BUILD 0.9.4</span><span>Music and video, in one creative flow.</span></footer>
     </div>
-  </main>
-  <div class="toast" role="status"><i>✓</i><span><strong>프로젝트를 준비하고 있어요</strong><small>잠시 후 Music Studio로 이동합니다.</small></span></div>
-  <script src="app.js"></script>
-</body>
-</html>
+    <div class="bottom-editor">
+      <div class="editor-tabs"><button class="active" data-editor="lyrics">LYRICS</button><button data-editor="piano">PIANO ROLL</button><button data-editor="automation">AUTOMATION</button><button data-editor="storyboard">STORYBOARD</button><button id="closeEditor">×</button></div>
+      <div class="editor-content lyrics active" data-panel="lyrics">
+        <div class="lyric-meta"><span>VERSE 1</span><b>마디 9–16</b><small>AI 가사 · 한국어</small></div>
+        <div class="lyrics-lines" id="lyricsLines"><div><i>01</i><span contenteditable="true">길었던 계절 끝에 네가 서 있어</span><em>gil-eot-deon gye-jeol kkeut-e ne-ga seo iss-eo</em></div><div class="selected"><i>02</i><span contenteditable="true">잊었던 이름을 다시 불러 봐</span><em>it-eot-deon i-reum-eul da-si bul-leo bwa</em></div><div><i>03</i><span contenteditable="true">멈춰 있던 시간이 흐르기 시작해</span><em>meom-chwo it-deon si-gan-i heu-reu-gi si-jak-hae</em></div></div>
+        <button id="rewriteBtn" class="ai-small">✦ 선택 가사 다시 쓰기</button>
+      </div>
+      <div class="editor-content piano" data-panel="piano"><div class="keys"></div><div class="notes" id="pianoNotes"></div></div>
+      <div class="editor-content automation" data-panel="automation"><svg viewBox="0 0 800 90" preserveAspectRatio="none"><path d="M0,70 C100,65 120,20 220,32 S380,72 480,30 S650,10 800,24"/><circle cx="220" cy="32" r="5"/><circle cx="480" cy="30" r="5"/></svg><span>TRACK VOLUME AUTOMATION</span></div>
+      <div class="editor-content storyboard" data-panel="storyboard"><div class="scene"><b>01</b><span>도시 야경</span><small>00:00–00:12</small></div><div class="scene"><b>02</b><span>LUNA 등장</span><small>00:12–00:28</small></div><div class="scene"><b>03</b><span>Close-up</span><small>00:28–00:45</small></div><button class="scene-add">＋ 장면 추가</button></div>
+    </div>
+  </section>
+  <aside class="inspector">
+    <div class="inspector-tabs"><button class="active" data-side="producer">AI PRODUCER</button><button data-side="inspect">INSPECTOR</button></div>
+    <div class="producer active side-panel" data-side-panel="producer">
+      <div class="ai-status"><div class="orb">✦</div><div><b>AI Producer</b><span><i></i> 프로젝트를 듣고 있어요</span></div><button>•••</button></div>
+      <div class="suggestion"><small>SUGGESTION</small><p>후렴의 에너지를 더 높일 수 있어요.</p><button class="suggestion-action" data-action="drums">드럼 강화</button><button class="suggestion-action" data-action="harmony">화음 추가</button><button class="dismiss">무시</button></div>
+      <div class="chat" id="chat"><div class="msg ai"><i>✦</i><p>무엇을 바꿔드릴까요? 프로젝트의 트랙과 구조를 직접 수정할 수 있어요.</p></div></div>
+      <div class="prompt"><textarea id="aiPrompt" placeholder="예: 마지막 후렴만 반키 올려줘"></textarea><div><button id="attachBtn">＋</button><span>PROJECT CONTEXT ON</span><button id="sendBtn">↑</button></div></div>
+    </div>
+    <div class="inspect side-panel" data-side-panel="inspect"><h3>TRACK SETTINGS</h3><label>TRACK NAME<input id="inspectName" value="Lead Vocal"></label><label>COLOR<input type="color" value="#ff7168"></label><label>TRANSPOSE<input type="range" min="-12" max="12" value="0"><output>0 st</output></label><label>HUMANIZE<input type="range" value="28"><output>28%</output></label><hr><button class="danger">트랙 삭제</button></div>
+    <div class="master"><div><span>MASTER</span><b id="masterDb">-6.2 dB</b></div><div class="meter"><i></i><i></i></div><input id="masterVolume" type="range" min="0" max="100" value="78"><div class="master-buttons"><button>FX</button><button class="active">LIMITER</button></div></div>
+  </aside>
+</main>
+<div class="modal" id="trackModal" hidden><div class="modal-card"><button class="modal-close">×</button><small>NEW TRACK</small><h2>트랙 추가</h2><div class="track-types"><button data-type="vocal">🎤<b>Vocal</b><span>AI Singing</span></button><button data-type="instrument">🎹<b>Instrument</b><span>MIDI</span></button><button data-type="audio">〽<b>Audio</b><span>File / Record</span></button><button data-type="video">▣<b>Video</b><span>Scene track</span></button></div></div></div>
+<div class="toast" id="toast"><b>✓</b><span><strong>변경사항을 적용했습니다</strong><small>실행 취소하려면 ⌘Z</small></span></div>
+</div><script src="app.js"></script>
+</body></html>

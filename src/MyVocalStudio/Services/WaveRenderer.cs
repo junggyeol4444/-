@@ -7,6 +7,7 @@ namespace MyVocalStudio.Services;
 public sealed class WaveRenderer
 {
     public const int SampleRate = 44_100;
+    private readonly PcmWaveReader _waveReader = new();
 
     public Task RenderAsync(
         string path,
@@ -47,6 +48,7 @@ public sealed class WaveRenderer
         var audibleTracks = project.Tracks
             .Where(track => !track.IsMuted && (!hasSolo || track.IsSolo))
             .ToArray();
+        var sourceAudio = LoadSourceAudio(audibleTracks);
 
         await using var stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, 65_536, true);
         using var writer = new BinaryWriter(stream, Encoding.ASCII, true);
@@ -61,9 +63,8 @@ public sealed class WaveRenderer
             var sample = 0d;
             foreach (var track in audibleTracks)
             {
-                if (!track.Clips.Any(clip => time >= clip.Start && time < clip.Start + clip.Length))
-                    continue;
-                sample += RenderTrack(track, time, project.Bpm) * track.Volume;
+                foreach (var clip in track.Clips.Where(clip => time >= clip.Start && time < clip.Start + clip.Length))
+                    sample += RenderClip(track, clip, time, project.Bpm, sourceAudio) * track.Volume;
             }
 
             // Soft saturation prevents clipping when many tracks are active.
@@ -84,8 +85,15 @@ public sealed class WaveRenderer
         progress?.Report(1);
     }
 
-    private static double RenderTrack(TrackModel track, double time, double bpm)
+    private static double RenderClip(
+        TrackModel track,
+        ClipModel clip,
+        double time,
+        double bpm,
+        IReadOnlyDictionary<Guid, PcmAudioBuffer> sourceAudio)
     {
+        if (sourceAudio.TryGetValue(clip.Id, out var audio))
+            return audio.SampleAt(time - clip.Start + clip.SourceOffset);
         var beat = 60 / bpm;
         var beatPhase = time % beat;
         var beatIndex = (int)(time / beat);
@@ -103,6 +111,18 @@ public sealed class WaveRenderer
             TrackKind.Audio => Math.Sin(2 * Math.PI * root / 2 * time) * Math.Exp(-beatPhase * 1.4),
             _ => 0
         };
+    }
+
+    private Dictionary<Guid, PcmAudioBuffer> LoadSourceAudio(IEnumerable<TrackModel> tracks)
+    {
+        var result = new Dictionary<Guid, PcmAudioBuffer>();
+        foreach (var clip in tracks.SelectMany(track => track.Clips).Where(clip => !string.IsNullOrWhiteSpace(clip.SourcePath)))
+        {
+            if (!File.Exists(clip.SourcePath))
+                throw new FileNotFoundException($"오디오 소스를 찾을 수 없습니다: {clip.SourcePath}", clip.SourcePath);
+            result[clip.Id] = _waveReader.Read(clip.SourcePath);
+        }
+        return result;
     }
 
     private static void WriteHeader(BinaryWriter writer, int dataBytes)

@@ -39,6 +39,8 @@ GitHub에서는 **Actions → Build and verify Windows EXE**를 실행해 검증
 - 프로젝트 트랙을 임시 WAV로 렌더링한 뒤 Windows Media Foundation으로 수행하는 실제 미리듣기
 - 재생 헤드와 실제 오디오 위치 동기화, 재생·일시정지·정지·되감기
 - Vocal, Instrument, Audio, Video 데이터 모델
+- Mono/Stereo 16-bit PCM WAV 파일 가져오기와 타임라인 배치
+- 가져온 WAV의 샘플레이트 변환 재생 및 프로젝트 믹스 포함
 - Track Mute/Solo 및 트랙 추가
 - 가사, Piano Roll, Automation, MV Storyboard 편집 화면
 - AI Producer 명령에 따른 Drum/Harmony 클립 변경

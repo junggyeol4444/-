@@ -16,6 +16,14 @@ public sealed class TrackModel
     public double Volume { get; set; } = .75; public bool IsMuted { get; set; } public bool IsSolo { get; set; }
     public ObservableCollection<ClipModel> Clips { get; set; } = [];
 }
-public sealed class ClipModel { public Guid Id { get; set; }=Guid.NewGuid(); public string Name { get; set; }="Clip"; public double Start { get; set; } public double Length { get; set; }=8; }
+public sealed class ClipModel
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Name { get; set; } = "Clip";
+    public double Start { get; set; }
+    public double Length { get; set; } = 8;
+    public string? SourcePath { get; set; }
+    public double SourceOffset { get; set; }
+}
 public sealed class StoryboardScene { public int Number { get; set; } public string Title { get; set; }="Scene"; public TimeSpan Start { get; set; } public TimeSpan End { get; set; } }
 public enum TrackKind { Vocal, Instrument, Audio, Video }

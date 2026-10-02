@@ -10,7 +10,7 @@ using MyVocalStudio.Services;
 namespace MyVocalStudio;
 public partial class MainWindow:Window
 {
-    private readonly ProjectService _projects=new(); private readonly WaveRenderer _renderer=new(); private readonly AudioPlaybackService _playback=new(); private readonly System.Windows.Threading.DispatcherTimer _timer=new(){Interval=TimeSpan.FromMilliseconds(50)};
+    private readonly ProjectService _projects=new(); private readonly WaveRenderer _renderer=new(); private readonly PcmWaveReader _waveReader=new(); private readonly AudioPlaybackService _playback=new(); private readonly System.Windows.Threading.DispatcherTimer _timer=new(){Interval=TimeSpan.FromMilliseconds(50)};
     private StudioProject _project=CreateDefault(); private string? _path; private double _position=72; private bool _playing; private bool _previewDirty=true; private CancellationTokenSource? _previewCancellation; private (ClipModel Clip,double StartX,double OldStart)? _drag; private const double Scale=14;
     public MainWindow(){InitializeComponent();_timer.Tick+=(_,_)=>{if(_playing){_position=_playback.IsOpen?_playback.Position.TotalSeconds:(_position+.05)%100;UpdatePlayhead();}};_timer.Start();Closed+=(_,_)=>{_previewCancellation?.Cancel();_playback.Dispose();};RenderAll();}
     private static StudioProject CreateDefault()=>new(){Tracks=
@@ -56,6 +56,20 @@ public partial class MainWindow:Window
     }
     private void Stop_Click(object s,RoutedEventArgs e){_playback.Stop();_playing=false;_position=0;PlayButton.Content="▶";UpdatePlayhead();} private void Rewind_Click(object s,RoutedEventArgs e){_position=Math.Max(0,_position-4);if(_playback.IsOpen)_playback.Position=TimeSpan.FromSeconds(_position);UpdatePlayhead();}
     private void AddTrack_Click(object s,RoutedEventArgs e){_project.Tracks.Add(new(){Name="New Instrument",Kind=TrackKind.Instrument,Color="#718FEE"});RenderTracks();}
+    private void ImportAudio_Click(object s,RoutedEventArgs e)
+    {
+        var dialog=new OpenFileDialog{Filter="PCM WAV Audio|*.wav",Multiselect=true};if(dialog.ShowDialog()!=true)return;
+        try
+        {
+            foreach(var path in dialog.FileNames)
+            {
+                var audio=_waveReader.Read(path);var track=new TrackModel{Name=Path.GetFileNameWithoutExtension(path),Kind=TrackKind.Audio,Color="#59C5D5"};
+                track.Clips.Add(new ClipModel{Name=Path.GetFileName(path),Start=_position,Length=audio.Duration,SourcePath=Path.GetFullPath(path)});_project.Tracks.Add(track);
+            }
+            RenderTracks();
+        }
+        catch(Exception ex){MessageBox.Show(ex.Message,"오디오 가져오기 실패",MessageBoxButton.OK,MessageBoxImage.Error);}
+    }
     private void Rewrite_Click(object s,RoutedEventArgs e)=>LyricsText.Text="기억의 저편에서 네 목소리가 와\n\n멈춘 계절 사이로 다시 피어난 우리\n\n이제는 놓치지 않을게";
     private void Drums_Click(object s,RoutedEventArgs e)=>ApplyAi("후렴 드럼을 강화해줘");private void Harmony_Click(object s,RoutedEventArgs e)=>ApplyAi("후렴에 화음을 추가해줘");private void AiApply_Click(object s,RoutedEventArgs e)=>ApplyAi(AiPrompt.Text);
     private void ApplyAi(string prompt){var answer="요청을 프로젝트에 적용했습니다.";if(prompt.Contains("드럼")){_project.Tracks.First(x=>x.Name=="Drums").Clips.Add(new(){Name="AI Power Drums",Start=76,Length=16});answer="마지막 후렴에 파워 드럼과 크래시를 추가했습니다.";}else if(prompt.Contains("화음")){_project.Tracks.First(x=>x.Name=="Harmony").Clips.Add(new(){Name="AI Harmony",Start=76,Length=15});answer="마지막 후렴에 3도 위 화음을 추가했습니다.";}else if(prompt.Contains("반키"))answer="마지막 후렴의 조성을 반키 올리는 편집 지시를 등록했습니다.";ChatLog.AppendText($"\n\n나: {prompt}\n✦ {answer}");ChatLog.ScrollToEnd();RenderTracks();}

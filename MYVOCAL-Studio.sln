@@ -1,0 +1,24 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVocalStudio", "src\MyVocalStudio\MyVocalStudio.csproj", "{648A445C-D16F-4E39-A9E5-4C9E28F95CC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyVocalStudio.Tests", "tests\MyVocalStudio.Tests\MyVocalStudio.Tests.csproj", "{EA263D55-F5F1-423E-A13A-2ED31EB3FB47}"
+EndProject
+Global
+ GlobalSection(SolutionConfigurationPlatforms) = preSolution
+  Debug|Any CPU = Debug|Any CPU
+  Release|Any CPU = Release|Any CPU
+ EndGlobalSection
+ GlobalSection(ProjectConfigurationPlatforms) = postSolution
+  {648A445C-D16F-4E39-A9E5-4C9E28F95CC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {648A445C-D16F-4E39-A9E5-4C9E28F95CC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+  {648A445C-D16F-4E39-A9E5-4C9E28F95CC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {648A445C-D16F-4E39-A9E5-4C9E28F95CC0}.Release|Any CPU.Build.0 = Release|Any CPU
+  {EA263D55-F5F1-423E-A13A-2ED31EB3FB47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+  {EA263D55-F5F1-423E-A13A-2ED31EB3FB47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+  {EA263D55-F5F1-423E-A13A-2ED31EB3FB47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+  {EA263D55-F5F1-423E-A13A-2ED31EB3FB47}.Release|Any CPU.Build.0 = Release|Any CPU
+ EndGlobalSection
+EndGlobal
